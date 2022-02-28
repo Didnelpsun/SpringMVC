@@ -1,0 +1,7 @@
+*/.idea/
+*/.git/
+*/target/
+*/.gitignore
+*/out/
+/.idea/
+*/lib/

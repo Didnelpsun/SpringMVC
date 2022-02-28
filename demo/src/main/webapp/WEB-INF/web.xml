@@ -1,0 +1,19 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <!--给Servlet取一个名字-->
+    <servlet-name>dispatcherServlet</servlet-name>
+    <!--Servlet所使用的类，是一个固定类-->
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <!--配置Servlet映射，即任何URL请求都会经过这个Servlet-->
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <!--URL匹配，即URL是这个字符串就会调用该Servlet-->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
