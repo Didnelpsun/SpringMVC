@@ -4,6 +4,7 @@
         <title>demo</title>
     </head>
     <body>
-        <a href=""></a>
+        <!--点击跳转到{动态前缀}/hello-->
+        <a href="${pageContext.request.contextPath}/hello">跳转到Hello</a>
     </body>
 </html>

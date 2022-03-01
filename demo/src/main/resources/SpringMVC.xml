@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <!--开启注解扫描-->
+    <context:component-scan base-package="org.didnelpsun.controller"/>
+    <!--视图解析器对象-->
+    <!--为一个固定值-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--文件所在目录-->
+        <!--https://blog.csdn.net/DJH2717/article/details/88742435-->
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <!--文件后缀名-->
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <!--开启SpringMVC框架注解的支持-->
+    <mvc:annotation-driven />
 </beans>

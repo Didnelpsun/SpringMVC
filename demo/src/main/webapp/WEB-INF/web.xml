@@ -1,14 +1,29 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                      https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0"
+         metadata-complete="false">
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
     <!--给Servlet取一个名字-->
     <servlet-name>dispatcherServlet</servlet-name>
     <!--Servlet所使用的类，是一个固定类-->
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--全局加载Spring容器-->
+    <!--初始化配置，加载配置文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:SpringMVC.xml</param-value>
+    </init-param>
+    <!--启动服务器就创建-->
+    <!--
+      + load-on-startup元素标记容器是否应该在web应用程序启动的时候就加载这个servlet，(实例化并调用其init()方法)。
+      + 它的值必须是一个整数，表示Servlet被加载的先后顺序。
+      + 如果该元素的值为负数或者没有设置，则容器会当Servlet被请求时再加载。
+      + 如果值为正整数或者0时，表示容器在应用启动时就加载并初始化这个servlet，值越小，servlet的优先级越高，就越先被加载。值相同时，容器就会自己选择顺序来加载。
+    -->
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <!--配置Servlet映射，即任何URL请求都会经过这个Servlet-->
   <servlet-mapping>
