@@ -2,7 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--开启扫描组件-->
     <context:component-scan base-package="org.didnelpsun.controller"/>
     <!--配置视图解析器-->
@@ -14,4 +20,10 @@
         <!--后缀为jsp-->
         <property name="suffix" value=".jsp"/>
     </bean>
+    <!--开启MVC注解驱动-->
+    <mvc:annotation-driven />
+    <!--配置view-controller-->
+    <!--path即GetMapping内容，view-name即return内容-->
+    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/share" view-name="redirect:/share"/>
 </beans>

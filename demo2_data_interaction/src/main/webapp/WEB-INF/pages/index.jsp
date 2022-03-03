@@ -9,5 +9,7 @@
 <h2><a href="${pageContext.request.contextPath}/test/ant">ant风格路径</a></h2>
 <h2><a href="${pageContext.request.contextPath}/restful/hello">restful携带value="hello"</a></h2>
 <h2><a href="${pageContext.request.contextPath}/param">获取请求参数</a></h2>
+<h2><a href="${pageContext.request.contextPath}/share">域共享数据</a></h2>
+<h3>${sessionScope.session}</h3>
 </body>
 </html>
