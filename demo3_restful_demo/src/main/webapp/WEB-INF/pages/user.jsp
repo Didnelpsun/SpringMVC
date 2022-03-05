@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td><a>插入新用户</a></td>
+            <td><a href="/userSave">插入新用户</a></td>
         </tr>
         <tr>
             <th>用户ID</th>
@@ -34,9 +34,9 @@
                 <td>${user.getSex()}</td>
                 <td>${user.getBirthday()}</td>
                 <td>${user.getAddress()}</td>
-                <td>
-                    <a>更新</a>
-                    <a onclick="deleteUser('${pageContext.request.contextPath}/${user.getId()}')">删除</a>
+                <td style="display: flex; flex-direction: row; justify-content: space-around">
+                    <div onclick="updateUser('${pageContext.request.contextPath}/userSave/${user.getId()}')">更新</div>
+                    <div onclick="deleteUser('${pageContext.request.contextPath}/${user.getId()}')">删除</div>
                 </td>
             </tr>
         </c:forEach>
@@ -46,6 +46,10 @@
         <input type="hidden" name="_method" value="delete">
     </form>
     <script type="text/javascript">
+        function updateUser(url){
+            // 跳转
+            window.location.href = url;
+        }
         function deleteUser(url){
             // 创建一个表单
             let form = document.createElement("form");
