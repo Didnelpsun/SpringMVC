@@ -21,5 +21,49 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <mvc:annotation-driven />
-    <mvc:view-controller path="/" view-name="index"/>
+<!--    <mvc:view-controller path="/" view-name="index"/>-->
+<!--    <mvc:annotation-driven>-->
+<!--        <mvc:message-converters register-defaults="false">-->
+<!--            &lt;!&ndash;处理响应体为文本模式的情况下对字符编码改为UTF-8&ndash;&gt;-->
+<!--            <bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+<!--                &lt;!&ndash;默认字符编码&ndash;&gt;-->
+<!--                <property name="defaultCharset" value="UTF-8"/>-->
+<!--                &lt;!&ndash;是否给响应头添加自动字符编码类型&ndash;&gt;-->
+<!--                <property name="writeAcceptCharset" value="false"/>-->
+<!--            </bean>-->
+<!--        </mvc:message-converters>-->
+<!--    </mvc:annotation-driven>-->
+    <!--开启静态资源处理-->
+    <mvc:default-servlet-handler/>
+    <!--文件上传解析器，且id名字必须为multipartResolver，否则SpringMVC找不到-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--默认字符编码-->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--默认上传文件最大值，上传的不能超过10M。不然直接报500这个错-->
+<!--        <property name="maxUploadSize" value="10000000"/>-->
+    </bean>
+    <!--拦截器-->
+<!--    <mvc:interceptors>-->
+<!--        <bean class="org.didnelpsun.interceptor.PageInterceptor"/>-->
+<!--        <bean class="org.didnelpsun.interceptor.PageInterceptor1"/>-->
+<!--        <bean class="org.didnelpsun.interceptor.PageInterceptor2"/>-->
+<!--        <bean class="org.didnelpsun.interceptor.PageInterceptor3"/>-->
+<!--        <mvc:interceptor>-->
+<!--            &lt;!&ndash;拦截路径配置&ndash;&gt;-->
+<!--            <mvc:mapping path="/*"/>-->
+<!--            &lt;!&ndash;排除路径配置&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+    <!--配置异常处理器-->
+<!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+<!--        &lt;!&ndash;异常映射，当出现异常应该如何处理&ndash;&gt;-->
+<!--        <property name="exceptionMappings">-->
+<!--            <props>-->
+<!--                &lt;!&ndash;key为异常的全限定类名，包含的prop为跳转视图名&ndash;&gt;-->
+<!--                <prop key="java.lang.ArithmeticException">error</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--        <property name="exceptionAttribute" value="exception" />-->
+<!--    </bean>-->
 </beans>
