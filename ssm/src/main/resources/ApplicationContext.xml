@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+    <!--由于没有主文件进行标准Java运行，这里是Web项目，所以不使用@ComponentScan注解-->
+    <!--开启注解扫描，只处理service和dao-->
+    <context:component-scan base-package="org.didnelpsun">
+        <!--将Controller注解的类都不处理-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--整合MyBatis-->
+    <!--引入数据库配置-->
+    <context:property-placeholder location="classpath:JdbcConfig.properties"/>
+    <!--配置连接池-->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <!--jdbc驱动程序-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <!--数据库连接字符串-->
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置SqlSessionFactory工程-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置dao接口所在包-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.didnelpsun.dao"/>
+    </bean>
+    <!--配置声明式事务管理-->
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置事务通知-->
+    <tx:advice id="interceptor" transaction-manager="transactionManager" >
+        <tx:attributes>
+            <!--如果是查询语句就设置为只读-->
+            <tx:method name="select*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--配置AOP增强-->
+    <aop:config>
+        <!--配置切入点进行拦截事务处理-->
+        <!--对service包下的所有ServiceImpl的所有方法进行事务管理-->
+        <aop:advisor advice-ref="interceptor" pointcut="execution(* org.didnelpsun.service.*ServiceImpl.*(..))" />
+    </aop:config>
+</beans>

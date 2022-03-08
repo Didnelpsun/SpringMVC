@@ -1,5 +1,7 @@
 package org.didnelpsun.controller;
 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.didnelpsun.entity.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -140,8 +141,28 @@ public class PageController {
                 return "redirect:/";
             }
         }
+//        System.out.println(path);
         // 设置上传地址
         file.transferTo(new File(path + File.separator + fileName));
+        return "redirect:/";
+    }
+    @RequestMapping("/domainUpload")
+    // SpringMVC把这个文件封装到MultipartFile类中
+    public String domainUpload(MultipartFile file) throws IOException {
+        // 判断file是否传入为空
+        if(file.getSize()==0){
+            return "redirect:/";
+        }
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        // 定义上传服务器路径
+        String serverPath = "D:\\Tomcat\\Tomcat 8.5\\webapps\\ROOT\\static\\img";
+        // 创建客户端对象
+        Client client = Client.create();
+        // 和图片服务器进行连接
+        WebResource webResource = client.resource(serverPath + fileName);
+        // 上传资源
+        webResource.put(file.getBytes());
         return "redirect:/";
     }
     // 数字计算异常

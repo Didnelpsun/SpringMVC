@@ -23,7 +23,8 @@
 <a href="${pageContext.request.contextPath}/responseBody">通过ResponseBody响应</a>
 <a href="${pageContext.request.contextPath}/responseBodyUser">通过ResponseBody响应User</a>
 <br><label for="filename">文件名：</label><input type="text" id="filename"><div onclick="(()=>{window.location.href += 'download/'+document.getElementById('filename').value;})()">下载文件</div>
-<form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+<%--<form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">--%>
+<form action="${pageContext.request.contextPath}/domainUpload" method="post" enctype="multipart/form-data">
     头像：<input type="file" name="file"><br>
     <input type="submit" value="上传头像">
 </form>
