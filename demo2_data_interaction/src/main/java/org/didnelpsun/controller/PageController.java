@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -61,11 +62,22 @@ public class PageController {
 //        System.out.println("cookie:" + cookie);
 //        return "param";
 //    }
-    @RequestMapping("/param")
-    public String paramPojo(User user){
-        System.out.println(user);
-        return "param";
+    @ResponseBody
+    @RequestMapping(value = "/{path}", produces = {"application/json;charset=utf-8"})
+    public Map<String, Object> paramMatrix(@MatrixVariable("id") Integer[] id,
+                                           @MatrixVariable("name") String[] name,
+                                           @PathVariable String[] path){
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("path", path);
+        return map;
     }
+//    @RequestMapping("/param")
+//    public String paramPojo(User user){
+//        System.out.println(user);
+//        return "param";
+//    }
     @RequestMapping("/share")
     public String share(){
         return "share";
